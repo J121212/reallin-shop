@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+        <mapper namespace="dao.CatelogMapper">
+    <resultMap id="BaseResultMap" type="pojo.Catelog" >
+        <id column="id" property="id" jdbcType="INTEGER" />
+        <result column="name" property="name" jdbcType="VARCHAR" />
+        <result column="number" property="number" jdbcType="INTEGER" />
+        <result column="status" property="status" jdbcType="TINYINT" />
+    </resultMap>
+
+    <sql id="Base_Column_List" >
+        id, name, number, status
+    </sql>
+
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+        select
+        <include refid="Base_Column_List" />
+        from catelog
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+
+
+    <update id="updateCatelogNum" parameterType="integer" >
+        update catelog
+        set number = #{number,jdbcType=INTEGER} where id = #{id,jdbcType=INTEGER}
+    </update>
+
+
+</mapper>

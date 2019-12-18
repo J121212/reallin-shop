@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="dao.ImageMapper">
+
+    <resultMap id="BaseResultMap" type="pojo.Image" >
+        <id column="id" property="id" jdbcType="INTEGER" />
+        <result column="goods_id" property="goodsId" jdbcType="INTEGER" />
+    </resultMap>
+    <resultMap id="ResultMapWithBLOBs" type="pojo.Image" extends="BaseResultMap" >
+        <result column="img_url" property="imgUrl" jdbcType="LONGVARCHAR" />
+    </resultMap>
+    <sql id="Base_Column_List" >
+        id, goods_id
+    </sql>
+    <sql id="Blob_Column_List" >
+        img_url
+    </sql>
+
+
+    <select id="selectByGoodsPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer">
+        select * from image where goods_id = #{goodsId,jdbcType=INTEGER}
+    </select>
+
+    <insert id="insert" parameterType="pojo.Image" >
+        insert into image (id, goods_id, img_url
+        )
+        values (#{id,jdbcType=INTEGER}, #{goodsId,jdbcType=INTEGER}, #{imgUrl,jdbcType=LONGVARCHAR}
+        )
+    </insert>
+
+</mapper>
